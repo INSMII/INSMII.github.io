@@ -6,6 +6,44 @@
 <body>
 <h1> Hello World</h1>
 <p> paragraph
+<td>
+
+
+<script>
+
+function test(n) {
+ $("#perl_code").width(n+"px");
+}
+
+function run_perl_code() {
+
+ var was_error = 0;
+
+ if (Perl.state == "Ended") { // in case of error
+   Perl.readyCallback = function() { alert(55) };
+   Perl.changeState("Ready");
+   Perl.start([]);
+   was_error = 1;
+ }
+
+ document.getElementById('output').querySelector('textarea').value = ''; // clear previous STDOUT
+
+ // global, so it work on setTimeout below
+ perl_code = document.getElementById('perl_code').value;
+
+ // $|=1; will make print to stdout work even after error.
+ perl_code = "$|=1;"+perl_code;
+
+  if (was_error) {
+    setTimeout(" Perl.eval( perl_code ); ", 300); // Time to Perl.start ?
+  } else {
+    Perl.eval(perl_code);
+  }
+
+}
+</script>
+
+<b>Perl code:</b><br>
 <textarea style="width: 90%; height: 150px;" id="perl_code">my $str = "Hello, this is Perl $^V running on your browser.
 Now is: ". scalar(localtime);
 
@@ -14,7 +52,78 @@ print $str;
 # Perl to JavaScript integration:
 use WebPerl 'js';
 js("console.log(`$str`)"); # see browser's console
-<div id="output"><textarea rows="24" cols="80" readonly="true"></textarea></div>
+
 </textarea>
+
+<!--
+my $js_func ="from_perl('$r')";
+js($js_func);
+-->
+
+<br>
+
+<input type="button" value="Run Perl code" onclick="run_perl_code()" id="btn_run_perl">
+
+
+
+<script>
+
+function from_perl(str) {
+ document.getElementById('resp').innerHTML = str;
+}
+
+</script>
+<script src="https://webperlcdn.zero-g.net/v0.07-beta/webperl.js"></script>
+
+<!--
+<script type="text/perl">
+# The (script type="text/perl") tag will autostart Perl interpreter, no need now to run Perl.init() and Perl.start()
+
+# Call Javascript to activate button now that Perl is Running
+js("document.getElementById('btn_run_perl').disabled=false;");
+
+</script>
+-->
+
+
+<script>
+
+window.addEventListener("load", function () {
+  document.getElementById('output').appendChild( Perl.makeOutputTextarea() );
+
+  if (Perl.state == "Uninitialized") {
+     Perl.init(function () {
+      window.setTimeout(function () { Perl.start([]); }, 1);
+      document.getElementById('btn_run_perl').disabled=false;
+    });
+  }
+
+});
+
+//Perl.output = function(perl_stdin) {
+//  alert(perl_stdin);
+//\}
+
+
+
+</script>
+
+<br><br>
+Output (stdout):<br>
+<div id="output"><textarea rows="24" cols="80" readonly="true"></textarea></div>
+
+<!--
+<div id="resp" style="border: 1px solid #333; width: 90%; height: 100px;"></div>
+-->
+
+<br><br>
+
+For more information:<br>
+<a href="https://webperl.zero-g.net/">https://webperl.zero-g.net/</a><br>
+<a href="https://webperl.zero-g.net/using.html">https://webperl.zero-g.net/using.html</a><br>
+<a href="https://webperl.zero-g.net/democode/index.html">https://webperl.zero-g.net/democode/index.html</a> (more online examples)
+
+</td>
+
 </body>
 </html>
