@@ -6,5 +6,15 @@
 <body>
 <h1> Hello World</h1>
 <p> paragraph
+<textarea style="width: 90%; height: 150px;" id="perl_code">my $str = "Hello, this is Perl $^V running on your browser.
+Now is: ". scalar(localtime);
+
+print $str;
+
+# Perl to JavaScript integration:
+use WebPerl 'js';
+js("console.log(`$str`)"); # see browser's console
+<div id="output"><textarea rows="24" cols="80" readonly="true"></textarea></div>
+</textarea>
 </body>
 </html>
