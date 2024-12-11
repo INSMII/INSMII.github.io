@@ -7,6 +7,18 @@
 <h1> Hello World</h1>
 <p> paragraph
 <td>
+ <script src="webperl.js"></script>
+ <script type="text/perl">
+
+print "Hello, Perl World!\n";  # goes to JavaScript console by default
+
+js('document')->getElementById('my_button')
+	->addEventListener('click', sub {
+		js('window')->alert("You clicked the button!");
+	} );
+</script>
+
+
 <!--
 
 
