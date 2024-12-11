@@ -7,6 +7,7 @@
 <h1> Hello World</h1>
 <p> paragraph
 <td>
+<!--
 
 
 <script>
@@ -55,10 +56,8 @@ js("console.log(`$str`)"); # see browser's console
 
 </textarea>
 
-<!--
 my $js_func ="from_perl('$r')";
 js($js_func);
--->
 
 <br>
 
@@ -75,7 +74,6 @@ function from_perl(str) {
 </script>
 <script src="https://webperlcdn.zero-g.net/v0.07-beta/webperl.js"></script>
 
-<!--
 <script type="text/perl">
 # The (script type="text/perl") tag will autostart Perl interpreter, no need now to run Perl.init() and Perl.start()
 
@@ -83,7 +81,6 @@ function from_perl(str) {
 js("document.getElementById('btn_run_perl').disabled=false;");
 
 </script>
--->
 
 
 <script>
@@ -112,7 +109,6 @@ window.addEventListener("load", function () {
 Output (stdout):<br>
 <div id="output"><textarea rows="24" cols="80" readonly="true"></textarea></div>
 
-<!--
 <div id="resp" style="border: 1px solid #333; width: 90%; height: 100px;"></div>
 -->
 
